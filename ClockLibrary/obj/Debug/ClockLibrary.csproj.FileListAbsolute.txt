@@ -1,0 +1,6 @@
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\bin\Debug\ClockLibrary.dll
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\bin\Debug\ClockLibrary.pdb
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\obj\Debug\ClockLibrary.csproj.CoreCompileInputs.cache
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\obj\Debug\ClockLibrary.dll
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\obj\Debug\ClockLibrary.pdb
+C:\Development\Software Development\Projects\PCAlarm\ClockLibrary\obj\Debug\ClockLibrary.csprojAssemblyReference.cache
