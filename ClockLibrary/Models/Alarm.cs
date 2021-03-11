@@ -10,20 +10,12 @@ namespace ClockLibrary.Models
     public class Alarm
     {
         public DateTime AlarmTime { get; private set; }
-        public string Description { get; set; }
-        public List<string> RecurringDays { get; set; }
+        public string Description { get; private set; }
 
-        public Alarm(int hour, int minutes, string description, List<string> recurringDays)
+        public Alarm(int year, int month, int day, int hour, int minutes, string description)
         {
+            AlarmTime = new DateTime(year, month, day, hour, minutes, 0);
             Description = description;
-            RecurringDays = recurringDays;
-            AlarmTime = CreateAlarm(hour, minutes);
-            Logger.LogNormal($"Alarm set for {AlarmTime}");
-        }
-
-        private DateTime CreateAlarm(int hour, int minutes)
-        {
-            return new DateTime(1, 1, 1, hour, minutes, 0);
         }
 
     }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\AlarmFactory.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Models\Alarm.cs" />
     <Compile Include="Models\Clock.cs" />

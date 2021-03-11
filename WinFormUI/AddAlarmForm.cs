@@ -15,26 +15,31 @@ namespace WinFormUI
     public partial class AddAlarmForm : Form
     {
         Clock clock;
-        public AddAlarmForm(Clock clock)
+        Form parentForm;
+        public AddAlarmForm(Clock clock, Form parentForm)
         {
+            this.parentForm = parentForm;
             this.clock = clock;
             InitializeComponent();
         }
 
         private void createAlarmButton_Click(object sender, EventArgs e)
         {
-            List<string> recurringDays = new List<string>();
-            foreach (var item in daysListBox.CheckedItems)
-            {
-                recurringDays.Add(item.ToString());
-                Logger.LogNormal($"{item.ToString()} added to recurring days");
-            }
-
-            clock.AddAlarm( 
+            clock.AddAlarm(
+                alarmDatePicker.Value.Year,
+                alarmDatePicker.Value.Month,
+                alarmDatePicker.Value.Day,
                 Int32.Parse(hourTextBox.Text),
                 Int32.Parse(minuteTextBox.Text),
-                descriptionTextBox.Text, recurringDays);
-            Logger.LogNormal("Alarm added");
+                descriptionTextBox.Text);
+            this.Close();
+            parentForm.Show();
+
+        }
+
+        private void alarmDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            monthCalendar.SetDate(alarmDatePicker.Value);
         }
     }
 }

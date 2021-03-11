@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClockLibrary.Helpers;
 using ClockLibrary;
+using ClockLibrary.Models;
 
 namespace WinFormUI
 {
@@ -20,6 +21,7 @@ namespace WinFormUI
         private Clock clock;
         private string audioFileLocation;
         List<string> audioFiles;
+
         private string selectedAudioFile;
         System.Timers.Timer t = new System.Timers.Timer(1000);
 
@@ -29,7 +31,7 @@ namespace WinFormUI
             this.clock = clock;
             this.audioPlayer = audioPlayer;
             InitializeComponent();
-            t.Elapsed += UpdateClock;
+            t.Elapsed += UpdateForm;
             t.AutoReset = true;
             t.Enabled = true;
             t.Start();
@@ -71,13 +73,24 @@ namespace WinFormUI
             selectedAudioFile = "";
         }
 
-        private void UpdateClock(object sender, EventArgs e)
+        private void UpdateForm(object sender, EventArgs e)
         {
-                if (digitalClockValue.Text == "00:00")
+            if (digitalClockValue.Text == "00:00")
+            {
+                Logger.LogNormal("Clock updated");
+            }
+
+            digitalClockValue.Text = ($"{clock.Hour}:{clock.Minute}");
+
+            if (clock.GetAlarms() != null)
+            {
+                alarmsListBox.Items.Clear();
+                foreach (var alarm in clock.GetAlarms())
                 {
-                    Logger.LogNormal("Clock updated");
+                    alarmsListBox.Items.Add(
+                        $"{alarm.AlarmTime.DayOfWeek} {alarm.AlarmTime.Hour}:{alarm.AlarmTime.Minute}");
                 }
-                digitalClockValue.Text = ($"{clock.GetDateTime().Hour}:{clock.GetDateTime().Minute}");
+            }
         }
 
         private void PCAlarmDashboard_FormClosed(object sender, FormClosedEventArgs e)
@@ -88,9 +101,10 @@ namespace WinFormUI
 
         private void addAlarmButton_Click(object sender, EventArgs e)
         {
-            AddAlarmForm addAlarmForm = new AddAlarmForm(clock);
+            AddAlarmForm addAlarmForm = new AddAlarmForm(clock, this);
             this.Hide();
             addAlarmForm.Show();
         }
+
     }
 }
