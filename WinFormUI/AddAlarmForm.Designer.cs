@@ -37,7 +37,6 @@ namespace WinFormUI
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.alarmDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.SuspendLayout();
             // 
             // hourTextBox
@@ -59,12 +58,12 @@ namespace WinFormUI
             this.descriptionTextBox.Location = new System.Drawing.Point(12, 77);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(175, 108);
+            this.descriptionTextBox.Size = new System.Drawing.Size(403, 108);
             this.descriptionTextBox.TabIndex = 2;
             // 
             // createAlarmButton
             // 
-            this.createAlarmButton.Location = new System.Drawing.Point(12, 193);
+            this.createAlarmButton.Location = new System.Drawing.Point(130, 195);
             this.createAlarmButton.Name = "createAlarmButton";
             this.createAlarmButton.Size = new System.Drawing.Size(175, 46);
             this.createAlarmButton.TabIndex = 3;
@@ -107,14 +106,7 @@ namespace WinFormUI
             this.alarmDatePicker.Location = new System.Drawing.Point(215, 22);
             this.alarmDatePicker.Name = "alarmDatePicker";
             this.alarmDatePicker.Size = new System.Drawing.Size(200, 35);
-            this.alarmDatePicker.TabIndex = 8;
-            this.alarmDatePicker.ValueChanged += new System.EventHandler(this.alarmDatePicker_ValueChanged);
-            // 
-            // monthCalendar
-            // 
-            this.monthCalendar.Location = new System.Drawing.Point(199, 77);
-            this.monthCalendar.Name = "monthCalendar";
-            this.monthCalendar.TabIndex = 9;
+            this.alarmDatePicker.TabIndex = 0;
             // 
             // AddAlarmForm
             // 
@@ -122,7 +114,6 @@ namespace WinFormUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(435, 253);
-            this.Controls.Add(this.monthCalendar);
             this.Controls.Add(this.alarmDatePicker);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -153,6 +144,5 @@ namespace WinFormUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker alarmDatePicker;
-        private System.Windows.Forms.MonthCalendar monthCalendar;
     }
 }

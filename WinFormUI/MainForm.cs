@@ -12,29 +12,29 @@ using System.Windows.Forms;
 using ClockLibrary.Helpers;
 using ClockLibrary;
 using ClockLibrary.Models;
+using System.Threading;
 
 namespace WinFormUI
 {
     public partial class PCAlarmDashboard : Form
     {
         private PlayerSession audioPlayer;
-        private Clock clock;
+        private static Clock clock;
         private string audioFileLocation;
         List<string> audioFiles;
-
+        static AlarmForm alarmForm;
         private string selectedAudioFile;
-        System.Timers.Timer t = new System.Timers.Timer(1000);
+        private bool alarmNotActive = true;
+        
 
 
-        public PCAlarmDashboard(PlayerSession audioPlayer, Clock clock)
+        public PCAlarmDashboard(PlayerSession audioPlayer, Clock argclock)
         {
-            this.clock = clock;
+            clock = argclock;
             this.audioPlayer = audioPlayer;
             InitializeComponent();
-            t.Elapsed += UpdateForm;
-            t.AutoReset = true;
-            t.Enabled = true;
-            t.Start();
+
+            CheckForAlarms();
         }
 
         private void selectMusicButton_Click(object sender, EventArgs e)
@@ -73,37 +73,69 @@ namespace WinFormUI
             selectedAudioFile = "";
         }
 
-        private void UpdateForm(object sender, EventArgs e)
+        private void CheckForAlarms()
         {
-            if (digitalClockValue.Text == "00:00")
-            {
-                Logger.LogNormal("Clock updated");
-            }
-
-            digitalClockValue.Text = ($"{clock.Hour}:{clock.Minute}");
-
-            if (clock.GetAlarms() != null)
-            {
-                alarmsListBox.Items.Clear();
-                foreach (var alarm in clock.GetAlarms())
-                {
-                    alarmsListBox.Items.Add(
-                        $"{alarm.AlarmTime.DayOfWeek} {alarm.AlarmTime.Hour}:{alarm.AlarmTime.Minute}");
-                }
-            }
+            Thread checkAlarmThread = new Thread(Check);
+            Thread updateClockThread = new Thread(UpdateClock);
+            updateClockThread.Start();
+            checkAlarmThread.Start();
         }
 
-        private void PCAlarmDashboard_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            t.Stop();
-            t.Dispose();
-        }
 
         private void addAlarmButton_Click(object sender, EventArgs e)
         {
             AddAlarmForm addAlarmForm = new AddAlarmForm(clock, this);
             this.Hide();
             addAlarmForm.Show();
+        }
+
+        private void Check()
+        {
+            Alarm activeAlarm = null;
+            while (alarmNotActive)
+            {
+                Logger.LogNormal("Checking for alarm");
+                foreach (Alarm alarm in clock.GetAlarms())
+                {
+                    if(alarm.AlarmTime.Hour == DateTime.Now.Hour && alarm.AlarmTime.Minute == DateTime.Now.Minute)
+                    {
+                        Logger.LogNormal("Alarm activated");
+                        activeAlarm = alarm;
+                        alarmNotActive = false;
+                        break;
+                    }
+                }
+                Thread.Sleep(100);
+            }
+            alarmForm = new AlarmForm(activeAlarm, audioPlayer);
+            alarmForm.ShowDialog();
+            alarmForm.Focus();
+        }
+
+        private void UpdateClock()
+        {
+            while (true)
+            {
+                if (digitalClockValue.Text == "00:00")
+                {
+                    Logger.LogNormal("Clock updated");
+                }
+
+                digitalClockValue.Text = ($"{clock.Hour}:{clock.Minute}");
+
+                if (clock.GetAlarms() != null)
+                {
+                    alarmsListBox.Items.Clear();
+                    foreach (var alarm in clock.GetAlarms())
+                    {
+                        alarmsListBox.Items.Add(
+                            $"{alarm.AlarmTime.DayOfWeek} {alarm.AlarmTime.Hour}:{alarm.AlarmTime.Minute}");
+                    }
+                }
+
+                Thread.Sleep(1000);
+
+            }
         }
 
     }

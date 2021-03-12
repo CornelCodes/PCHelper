@@ -10,6 +10,8 @@ namespace ClockLibrary.Models
     public class Alarm
     {
         public DateTime AlarmTime { get; private set; }
+
+
         public string Description { get; private set; }
 
         public Alarm(int year, int month, int day, int hour, int minutes, string description)

@@ -36,10 +36,5 @@ namespace WinFormUI
             parentForm.Show();
 
         }
-
-        private void alarmDatePicker_ValueChanged(object sender, EventArgs e)
-        {
-            monthCalendar.SetDate(alarmDatePicker.Value);
-        }
     }
 }

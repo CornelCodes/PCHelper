@@ -21,3 +21,4 @@ C:\Development\Software Development\Projects\PCAlarm\WinFormUI\bin\Debug\NAudio.
 C:\Development\Software Development\Projects\PCAlarm\WinFormUI\bin\Debug\Microsoft.Win32.Registry.xml
 C:\Development\Software Development\Projects\PCAlarm\WinFormUI\obj\Debug\WinFormUI.csproj.CopyComplete
 C:\Development\Software Development\Projects\PCAlarm\WinFormUI\obj\Debug\WinFormUI.AddAlarmForm.resources
+C:\Development\Software Development\Projects\PCAlarm\WinFormUI\obj\Debug\WinFormUI.AlarmForm.resources

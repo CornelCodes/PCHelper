@@ -301,7 +301,6 @@ namespace WinFormUI
             this.Name = "PCAlarmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PC Alarm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PCAlarmDashboard_FormClosed);
             this.musicPlayerMainPanel.ResumeLayout(false);
             this.musicPanelSelect.ResumeLayout(false);
             this.musicPanelList.ResumeLayout(false);
